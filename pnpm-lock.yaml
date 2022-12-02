@@ -30,6 +30,7 @@ specifiers:
   '@types/node': 18.7.18
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
+  '@types/react-router-dom': 5.3.3
   '@typescript-eslint/eslint-plugin': ^5.36.1
   '@typescript-eslint/parser': ^5.36.1
   autoprefixer: ^10.4.13
@@ -56,6 +57,7 @@ specifiers:
   prism-react-renderer: ^1.2.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-router-dom: 6.4.1
   react-test-renderer: 18.2.0
   regenerator-runtime: 0.13.7
   tailwindcss: ^3.2.4
@@ -76,6 +78,7 @@ dependencies:
   prism-react-renderer: 1.3.5_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-router-dom: 6.4.1_biqbaboplfbrettd7655fr4n2y
   regenerator-runtime: 0.13.7
   tslib: 2.4.1
 
@@ -105,6 +108,7 @@ devDependencies:
   '@types/node': 18.7.18
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
+  '@types/react-router-dom': 5.3.3
   '@typescript-eslint/eslint-plugin': 5.45.0_qxb4izumoiojdiqetududdoowi
   '@typescript-eslint/parser': 5.45.0_oy7hgmlo6357d5kkcjbkfgtg4q
   autoprefixer: 10.4.13_postcss@8.4.19
@@ -4722,6 +4726,11 @@ packages:
 
   /@polka/url/1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
+    dev: false
+
+  /@remix-run/router/1.0.1:
+    resolution: {integrity: sha512-eBV5rvW4dRFOU1eajN7FmYxjAIVz/mRHgUE9En9mBn6m3mulK3WTR5C3iQhL9MZ14rWAq+xOlEaCkDiW0/heOg==}
+    engines: {node: '>=14'}
     dev: false
 
   /@rollup/plugin-babel/5.3.1_opjstonlpkhafnz76jsxdwq25a:
@@ -16462,6 +16471,19 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
+  /react-router-dom/6.4.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-MY7NJCrGNVJtGp8ODMOBHu20UaIkmwD2V3YsAOUQoCXFk7Ppdwf55RdcGyrSj+ycSL9Uiwrb3gTLYSnzcRoXww==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-router: 6.4.1_react@18.2.0
+    dev: false
+
   /react-router/5.3.4_react@18.2.0:
     resolution: {integrity: sha512-Ys9K+ppnJah3QuaRiLxk+jDWOR1MekYQrlytiXxC1RyfbdsZkS5pvKAzCCr031xHixZwpnsYNT5xysdFHQaYsA==}
     peerDependencies:
@@ -16477,6 +16499,16 @@ packages:
       react-is: 16.13.1
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
+    dev: false
+
+  /react-router/6.4.1_react@18.2.0:
+    resolution: {integrity: sha512-OJASKp5AykDWFewgWUim1vlLr7yfD4vO/h+bSgcP/ix8Md+LMHuAjovA74MQfsfhQJGGN1nHRhwS5qQQbbBt3A==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.0.1
+      react: 18.2.0
     dev: false
 
   /react-shallow-renderer/16.15.0_react@18.2.0:

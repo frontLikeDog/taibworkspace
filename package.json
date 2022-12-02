@@ -19,6 +19,7 @@
     "prism-react-renderer": "^1.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-router-dom": "6.4.1",
     "regenerator-runtime": "0.13.7",
     "tslib": "^2.3.0"
   },
@@ -48,6 +49,7 @@
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
+    "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "autoprefixer": "^10.4.13",
