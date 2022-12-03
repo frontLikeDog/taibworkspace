@@ -9,7 +9,7 @@ export function App() {
   return (
     <>
       {/* <NxWelcome title="administrator" /> */}
-      <TopicButton topicName="Next.js" />
+      <TopicButton topicName="Tailwind" />
       <div />
 
       {/* START: routes */}

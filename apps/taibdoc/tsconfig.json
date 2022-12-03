@@ -1,5 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
+  // "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,

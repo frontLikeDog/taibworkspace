@@ -36,7 +36,7 @@ export function TopicButton(props: TopicButtonProps) {
     >
       <img src={icon} alt="" className="w-12" />
       <div className="p-5">
-        <h2 className="font-bold text-4xl">{props.topicName}</h2>
+        <h2 className="font-bold text-4xl text-primary-500">{props.topicName}</h2>
       </div>
     </div>
   );
