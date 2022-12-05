@@ -23,6 +23,7 @@ specifiers:
   '@nrwl/web': 15.2.3
   '@nrwl/workspace': 15.2.3
   '@nx-plus/docusaurus': ^14.1.0
+  '@storybook/addon-actions': ^6.5.14
   '@storybook/addon-essentials': ~6.5.9
   '@storybook/builder-webpack5': ~6.5.9
   '@storybook/core-server': ~6.5.9
@@ -108,6 +109,7 @@ devDependencies:
   '@nrwl/web': 15.2.3_uyqa26rzie3vo2k6ndkvhkcp7u
   '@nrwl/workspace': 15.2.3_yttlw3tycmhvjukbn4uwbup4he
   '@nx-plus/docusaurus': 14.1.0_yyxlazs4fat3ziwyemy2ztl5ki
+  '@storybook/addon-actions': 6.5.14_biqbaboplfbrettd7655fr4n2y
   '@storybook/addon-essentials': 6.5.14_zmemkermlyfjmqooh4dpybfk6u
   '@storybook/builder-webpack5': 6.5.14_l5mfndz4oofjzphygwrycjhl44
   '@storybook/core-server': 6.5.14_ux46vdu5jjo7zlk22c6try22eq

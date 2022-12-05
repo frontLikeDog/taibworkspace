@@ -1,3 +1,11 @@
-a.sbui-typography-link {
-  @apply text-sm text-link-700 cursor-pointer;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+  a.taibui-typography-link {
+    @apply text-sm text-link cursor-pointer;
+  }
+  
 }
+

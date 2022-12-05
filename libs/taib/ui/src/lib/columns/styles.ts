@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-
 import type { TArg } from "tailwindcss-classnames"
 import classnames from "tailwindcss-classnames"
 import { ColPorps } from "./columns"

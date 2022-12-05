@@ -1,3 +1,4 @@
+export * from './lib/container/container';
 export * from './lib/typography/typography';
 export * from './lib/stack/stack';
 export * from './lib/image/image';

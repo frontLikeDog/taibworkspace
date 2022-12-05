@@ -1,4 +1,4 @@
-import React from 'react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import TextStyles from './Text.module.css'
 
@@ -31,7 +31,7 @@ function Text({
   strong,
   small,
 }: Props) {
-  let classes = [TextStyles['sbui-typography-text']]
+  const classes = [TextStyles['sbui-typography-text']]
   if (className) {
     classes.push(className)
   }

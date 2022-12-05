@@ -1,6 +1,7 @@
 import { HandlerFunction } from '@storybook/addon-actions'
 import React from 'react'
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import LinkStyles from './Link.module.css'
 
 interface Props {
@@ -20,9 +21,9 @@ function Link({
   onClick,
   style,
 }: Props) {
-  let classes = [
-    LinkStyles['sbui-typography'],
-    LinkStyles['sbui-typography-link'],
+  const classes = [
+    LinkStyles['taibui-typography'],
+    LinkStyles['taibui-typography-link'],
   ]
   if (className) {
     classes.push(className)

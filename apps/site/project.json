@@ -22,7 +22,6 @@
     "serve": {
       "executor": "@nrwl/next:server",
       "defaultConfiguration": "development",
-      "dependsOn": ["^build"],
       "options": {
         "buildTarget": "site:build",
         "dev": true
