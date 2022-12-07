@@ -123,6 +123,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      ringColor:['focus'],
+      borderColor:['focus'],
+    },
   }
 };
