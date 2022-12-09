@@ -1,7 +1,8 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Input from './input';
-import { IconHome, IconLoader } from '@longstupay/taib-ui';
+import { Button, IconHome, IconLoader,Stack } from '@longstupay/taib-ui';
+import React from 'react';
 
 export default {
   /* 👇 The title prop is optional.
@@ -20,3 +21,24 @@ Simple.args = {
     variant: "info"
 }
 Simple.storyName = 'Default';
+
+
+export const WithRef = () => {
+  const inputRef = React.useRef<any>(null);
+  const [str, setStr] = React.useState<string>('');
+  const [Istate, setIstate] = React.useState<boolean>(true);
+  const handleClick = () => {
+    Istate ? inputRef.current.focus() : inputRef.current.blur();
+    setIstate(!Istate);
+  }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStr(e.target.value);
+  }
+  return (
+    <div className='flex gap-4 flex-col'>
+      <Input ref={inputRef} variant="primary" size="lg" onChange={handleChange} />
+      <div><Button onClick={handleClick} type="primary">点击改变聚焦状态</Button></div>
+      <p>输入框的值为{str}</p>
+    </div>
+  )
+}
