@@ -1,3 +1,6 @@
+export * from './lib/form-control/form-control';
+export * from './lib/radio/radio';
+export * from './lib/checkbox/checkbox';
 export * from './lib/input/input';
 export * from './lib/container/container';
 export * from './lib/typography/typography';
@@ -6,6 +9,6 @@ export * from './lib/image/image';
 export * from './lib/columns/index';
 export * from './lib/avatar/index';
 export * from './lib/button/button';
-export * from './lib/topic-button/topic-button';
+// export * from './lib/topic-button/topic-button';
 export * from './lib/taib-ui';
 export * from './lib/icons/index';

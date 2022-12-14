@@ -49,9 +49,9 @@ interface IRef {
 const Input = React.forwardRef<IRef,InputProps>(
   (props, iref) => {
     const { addonLeft, addonRight, size="base",variant,onChange,onBlur,onFocus, ...rest } = props;
-    const clsArgs = { size, variant };
+   
     const inputRef = React.useRef<any>(null);
-
+    const _addon = (addonLeft || addonRight) ? true : false
     React.useImperativeHandle(iref, () => ({
       input: () => inputRef?.current,
       focus: () => {
@@ -61,10 +61,10 @@ const Input = React.forwardRef<IRef,InputProps>(
         inputRef?.current?.blur();
       },
     }))
-
+    const clsArgs = { size, variant,_addon };
     return (
-      <div>
-        {props.addonLeft && <div>{props.addonLeft}</div>}
+      <div  className='flex items-center overflow-hidden'>
+        {props.addonLeft && <div className='flex justify-center rounded-l-md rounded-r-none w-10 bg-primary p-3 h-full border border-primary'>{props.addonLeft}</div>}
         <RcInput className={styles.inputStyle(clsArgs)}
           onFocus={onFocus}
           onBlur={onBlur}
@@ -72,6 +72,7 @@ const Input = React.forwardRef<IRef,InputProps>(
           type="text"
           ref={inputRef}
         />
+        {props.addonRight && <div  className='flex justify-center rounded-r-md rounded-l-none w-10 bg-primary p-3 h-full border border-primary'>{props.addonRight}</div>}
       </div>
     );
   }

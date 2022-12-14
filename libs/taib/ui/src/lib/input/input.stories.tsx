@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Input from './input';
-import { Button, IconHome, IconLoader,Stack } from '@longstupay/taib-ui';
+import { Button, IconHome, IconLoader,IconRight,Stack } from '@longstupay/taib-ui';
 import React from 'react';
 
 export default {
@@ -36,9 +36,17 @@ export const WithRef = () => {
   }
   return (
     <div className='flex gap-4 flex-col'>
-      <Input ref={inputRef} variant="primary" size="lg" onChange={handleChange} />
+      <Input ref={inputRef} variant="primary" size="lg" onChange={handleChange} addonLeft={<IconHome />} />
       <div><Button onClick={handleClick} type="primary">点击改变聚焦状态</Button></div>
       <p>输入框的值为{str}</p>
+    </div>
+  )
+}
+
+export const WithJsx = () => {
+  return (
+    <div className='flex gap-4 flex-col'>
+      <Input variant="primary" size="lg" addonLeft={<IconHome />} addonRight={<IconRight />} />
     </div>
   )
 }

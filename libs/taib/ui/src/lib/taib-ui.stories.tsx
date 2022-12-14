@@ -3,7 +3,7 @@ import { TaibUi } from './taib-ui';
 
 const Story: ComponentMeta<typeof TaibUi> = {
   component: TaibUi,
-  title: 'TaibUi',
+  title: 'TaibUI',
 };
 export default Story;
 

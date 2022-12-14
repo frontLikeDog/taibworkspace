@@ -27,7 +27,7 @@ const Template: Story<TopicButtonProps> = (args) => {
   );
 };
 
-export const Primary = Template.bind({});
+const Primary = Template.bind({});
 Primary.args = {
   topicName: 'Next.js',
 };

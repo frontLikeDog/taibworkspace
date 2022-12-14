@@ -33,10 +33,11 @@ export interface IStyleProps {
      */
     size?: keyof typeof _SIZEOGJ;
     variant?: keyof typeof _variantOBJ;
+    _addon: boolean;
 }
 
 
-const basicStyle = classnames("block rounded-md shadow-sm border focus:ring-2 focus:outline-none " as TArg);
+const basicStyle = classnames("block shadow-sm border focus:ring-2 focus:outline-none " as TArg);
 
 interface anyClsObj {
     [key: string]: TArg | string;
@@ -73,8 +74,9 @@ const clsHelperFn = <T extends anyClsObj, K extends keyof T>(obj: T, str: K) : T
 //     })
 //     return res;
 // }
+const rounded = classnames("rounded-none");
 
-export const inputStyle = ({ size = "base", variant="success" }: IStyleProps) => {
+export const inputStyle = ({ size = "base", variant="success",_addon }: IStyleProps) => {
     // const SIZEOGJ = _SIZEOGJ as classOBJ<typeof _SIZEOGJ>;
     // const SIZEFn: clsHelperFn<typeof _SIZEOGJ, keyof typeof _SIZEOGJ> = classHelper;
     // const VARIANTOBJ = _variantOBJ as classOBJ<typeof _variantOBJ>;
@@ -82,6 +84,7 @@ export const inputStyle = ({ size = "base", variant="success" }: IStyleProps) =>
     const SIZE = clsHelperFn(_SIZEOGJ, size);
     return classnames({
         [basicStyle]: true,
+        [rounded]: _addon === true,
         // [classnames(SIZEOGJ["base"])]: size === "base",
         // [classnames(SIZEOGJ["sm"])]: size === "sm",
         // [classnames(SIZEOGJ["md"])]: size === "md",
