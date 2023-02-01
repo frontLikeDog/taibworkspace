@@ -1,5 +1,6 @@
 import type { AbstractCheckboxProps } from '../checkbox/checkbox';
-import styles from './radio.module.css';
+// import styles from './radio.module.css';
+import * as clsn from './styles';
 import RcCheckbox from 'rc-checkbox';
 import React, { useEffect } from 'react';
 import RadioGroupContext from './radio-context';
@@ -20,7 +21,7 @@ export interface RadioGroupProps {
   style?: React.CSSProperties;
   defaultValue?: any;
   value?: any;
-  onChange?: (e: RadioChangeEvent ) => void;
+  onChange?: (e: RadioChangeEvent) => void;
   disabled?: DisabledType;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
@@ -61,20 +62,24 @@ export interface RadioChangeEvent {
 
 export type DisabledType = true | false | undefined;
 
-const InternalRadio:React.ForwardRefRenderFunction<HTMLElement,RadioProps> = (props,ref) =>{
+const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
+  props,
+  ref
+) => {
   const {
     className,
     children,
     style,
     onMouseEnter,
     onMouseLeave,
+    id,
     ...restProps
   } = props;
   const contextGroup = React.useContext(RadioGroupContext);
-  const radioProps:RadioProps = { ...restProps };
+  const radioProps: RadioProps = { ...restProps };
   const [isCheck, setIsCheck] = React.useState(false);
 
-  const onChange = (e:RadioChangeEvent) => {
+  const onChange = (e: RadioChangeEvent) => {
     // console.log(e);
     setIsCheck(e.target.checked);
     props.onChange?.(e);
@@ -86,25 +91,29 @@ const InternalRadio:React.ForwardRefRenderFunction<HTMLElement,RadioProps> = (pr
     radioProps.disabled = props.disabled || contextGroup.disabled;
   }
 
-  return (
+  const clsProps = { disabled: radioProps.disabled };
+  const markupId = id ? id : 'radio-' + props.value;
+   return (
     <label
-      htmlFor=""
+      htmlFor={markupId}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={style}
+      className={clsn.stylesRadio(clsProps)}
     >
       <RcCheckbox
+        id={markupId}
         type="radio"
         name={radioProps.name}
         value={radioProps.value}
-        onChange={onChange as unknown as (e:Event) => void}
+        onChange={onChange as unknown as (e: Event) => void}
         checked={contextGroup ? radioProps.checked : isCheck}
       />
-      {props.children !== undefined ? <span>{props.children}</span> : null}
+      {props.children && <span className="px-1">{props.children}</span>}
     </label>
   );
-}
+};
 
-const Radio = React.forwardRef<HTMLElement,RadioProps>(InternalRadio);
+const Radio = React.forwardRef<HTMLElement, RadioProps>(InternalRadio);
 
 export default Radio;

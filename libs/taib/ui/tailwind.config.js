@@ -125,7 +125,11 @@ module.exports = {
   variants: {
     extend: {
       ringColor:['focus'],
-      borderColor:['focus'],
+      borderColor:['focus','checked'],
+      backgroundColor:['checked'],
     },
-  }
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };

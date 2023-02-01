@@ -28,7 +28,7 @@ export const WithSize = () => {
     return (
             <Stack >
                 {sizes.map((size:any,index)=>(
-                <Template key={index} >
+                <Template key={index} value={size} >
                     {size}
                 </Template>))}
             </Stack>
