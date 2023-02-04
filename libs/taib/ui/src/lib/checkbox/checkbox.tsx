@@ -1,25 +1,24 @@
 import { RadioChangeEvent } from '../radio/radio';
 // import styles from './checkbox.module.css';
-import React, { Children } from 'react';
+import React from 'react';
 
 export interface AbstractCheckboxProps<T> {
   className?: string;
   /**
-   * 默认选中状态，false
+   * 是否初始化选中状态，false
    * @type {boolean}
    * @memberof AbstractCheckboxProps
    */
   defaultChecked?: boolean;
   /**
-   * 是否被默认选中（当页面加载时）
-   *
+   * 当前选中状态
    * @type {boolean}
    * @memberof AbstractCheckboxProps
    */
-  checked?: boolean;
+  isChecked?: boolean;
   style?: React.CSSProperties;
   disabled?: boolean;
-  onChange?: (e: T) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLElement>;
   onMouseEnter?: React.MouseEventHandler<HTMLElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLElement>;
@@ -53,27 +52,89 @@ export interface CheckboxProps extends AbstractCheckboxProps<RadioChangeEvent> {
    * @type {boolean}
    * @memberof CheckboxProps
    */
-  indeterminate?: boolean;
+  isIndeterminate?: boolean;
 }
 
-export const InternalCheckbox:React.ForwardRefRenderFunction<HTMLInputElement,CheckboxProps> = (props,ref) => {
-  const {children} = props;
+export const InternalCheckbox: React.ForwardRefRenderFunction<
+  HTMLInputElement,
+  CheckboxProps
+> = (props, ref) => {
+  const { children, isChecked, className, onChange, ...rest } = props;
+  const { state, getInputProps } = useCheckbox({ isChecked, ...rest });
+
   return (
-    <label className='relative inline-flex items-center text-sm'>
-      <input 
-        className='text-sm w-8 h-8'
-        type="checkbox" disabled={props.disabled} checked={props.defaultChecked} ref={ref} />
-      <input type="checkbox" className='m-2 transform scale-150 appearance-none checked:text-lg checked:text-red-400' checked={true} />
-      {
-        children && (
-          <label className='text-primary'>
-            {children}
-          </label>
-        )
-      }
+    <label className="relative inline-flex items-center text-sm">
+      <input
+        className="text-sm w-8 h-8" //className='form-checkbox m-2 transform scale-150 checked:text-lg checked:text-red-500'
+        {...getInputProps({ ref })}
+        // type="checkbox" disabled={props.disabled} checked={props.checked}
+        // onChange={handleChange}
+        // ref={ref}
+      />
+      {children && (
+        <label id={props.id} className="text-primary pl-1">
+          {children}
+        </label>
+      )}
     </label>
   );
+};
+interface useCheckboxProps
+  extends Pick<AbstractCheckboxProps<null>, 'defaultChecked' | 'isChecked'> {
+  id?: string;
+  name?: string;
+  value?: any;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isIndeterminate?: boolean;
 }
 
-const Checkbox = React.forwardRef<HTMLInputElement,CheckboxProps>(InternalCheckbox);
+const useCheckbox = (props: useCheckboxProps) => {
+  const {id,name,value,onChange,defaultChecked,isChecked: checkedProps,isIndeterminate,} = props;
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  React.useLayoutEffect(() => {
+    if (ref.current) {
+      ref.current.indeterminate = isIndeterminate || false;
+    }
+  }, [isIndeterminate]);
+
+  const getInputProps = (inputProps: HiddenInputProps = {}) => {
+    const { ref: inputRef } = inputProps;
+    return {
+      ...inputProps,
+      type: 'checkbox',
+      checked: checkedProps,
+      id,name,value,
+      ref: mergeRefs(ref, inputRef),
+    };
+  };
+  return {
+    state: {
+      defaultChecked,
+      checkedProps,
+      isIndeterminate,
+    },
+    getInputProps,
+  };
+};
+
+export const mergeRefs = (...refs: any[]) => {
+  return (node: any) => {
+    for (const ref of refs) {
+      if (!ref) continue;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else {
+        ref.current = node;
+      }
+    }
+  };
+};
+export type HiddenInputProps = {
+  ref?: React.Ref<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+};
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+  InternalCheckbox
+);
 export default Checkbox;

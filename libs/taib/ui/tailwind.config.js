@@ -130,6 +130,11 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({
+       // only generate global styles
+      // strategy: 'base',
+      // only generate classes
+      strategy: 'class', 
+    }),
   ],
 };
