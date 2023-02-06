@@ -23,7 +23,7 @@ Primary.storyName = "Default"
 
 export const Group = ()=> (
   <div>
-    <Checkbox.Group>
+    <Checkbox.Group color="red-400">
       <Checkbox>tiny</Checkbox>
       <Checkbox>small</Checkbox>
       <Checkbox>medium</Checkbox>

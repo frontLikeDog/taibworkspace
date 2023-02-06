@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Taib UI',
+  tagline: '基于TypeScript和TailwindCSS的React UI组件库,致力于A11y、兼容Taro小程序',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -43,9 +43,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Taib UI',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Taib UI Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -53,11 +53,11 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: '组件文档',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          { to: '/blog', label: 'Blog', position: 'right' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/frontLikeDog/taibworkspace/tree/master/libs/taib/ui',
             label: 'GitHub',
             position: 'right',
           },
@@ -106,7 +106,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Taib UI Project, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

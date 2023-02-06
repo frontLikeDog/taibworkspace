@@ -1,6 +1,7 @@
 import { RadioChangeEvent } from '../radio/radio';
 // import styles from './checkbox.module.css';
 import React from 'react';
+import { CtxCheckboxGroup } from './checkbox-group';
 
 export interface AbstractCheckboxProps<T> {
   className?: string;
@@ -59,8 +60,19 @@ export const InternalCheckbox: React.ForwardRefRenderFunction<
   HTMLInputElement,
   CheckboxProps
 > = (props, ref) => {
-  const { children, isChecked, className, onChange, ...rest } = props;
-  const { state, getInputProps } = useCheckbox({ isChecked, ...rest });
+  const { children, isChecked, className, ...rest } = props;
+  let { onChange } = props;
+
+  const group  = React.useContext(CtxCheckboxGroup);
+
+  if(group?.color) {
+    rest.color = group.color;
+  }
+
+  if(group?.onChange) {
+    onChange = group.onChange;
+  }
+  const { state, getInputProps } = useCheckbox({ isChecked, onChange, ...rest });
 
   return (
     <label className="relative inline-flex items-center text-sm">
@@ -99,9 +111,9 @@ const useCheckbox = (props: useCheckboxProps) => {
   }, [isIndeterminate]);
 
   const getInputProps = (inputProps: HiddenInputProps = {}) => {
-    const { ref: inputRef } = inputProps;
+    const { ref: inputRef,...rest } = inputProps;
     return {
-      ...inputProps,
+      ...rest,
       type: 'checkbox',
       checked: checkedProps,
       id,name,value,

@@ -4,9 +4,13 @@ import * as clsn from './styles';
 import RcCheckbox from 'rc-checkbox';
 import React, { useEffect } from 'react';
 import RadioGroupContext from './radio-context';
+
+
 export type RadioGroupOptionType = 'default' | 'button';
 
-export type RadioProps = AbstractCheckboxProps<RadioChangeEvent>;
+export type RadioProps = Omit<AbstractCheckboxProps<RadioChangeEvent>,"onChange"> & {
+  onChange?: (e: RadioChangeEvent) => void;
+};
 
 interface RadioOptionType {
   label?: React.ReactNode;
@@ -87,7 +91,7 @@ const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
   };
   if (contextGroup) {
     radioProps.name = contextGroup.name;
-    radioProps.checked = contextGroup.value === props.value;
+    radioProps.isChecked = contextGroup.value === props.value;
     radioProps.disabled = props.disabled || contextGroup.disabled;
   }
 
@@ -107,7 +111,7 @@ const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
         name={radioProps.name}
         value={radioProps.value}
         onChange={onChange as unknown as (e: Event) => void}
-        checked={contextGroup ? radioProps.checked : isCheck}
+        checked={contextGroup ? radioProps.isChecked : isCheck}
       />
       {props.children && <span className="px-1">{props.children}</span>}
     </label>

@@ -1,21 +1,36 @@
 import React from 'react';
-import * as twcls from './styles'
-type CheckboxValType = string | number | boolean;
+import * as twcls from './styles';
+
+export type CheckboxValType = string | number | boolean;
 export interface ContextGroupProps {
+  /**
+   * 复选框组的大小
+   * @type {('sm' | 'md' | 'lg')}
+   * @memberof ContextGroupProps
+   */
   size?: 'sm' | 'md' | 'lg';
+  /**
+   * 复选框组的颜色
+   * @type {string}
+   * @memberof ContextGroupProps
+   */
+  color?: string;
   name?: string;
   disabled?: boolean;
   value?: any;
+  defaultValue?: any;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 interface OptionType {
   label?: React.ReactNode;
   value?: CheckboxValType;
 }
-export interface CheckboxGroupProps extends Pick<ContextGroupProps, 'disabled'> {
+export interface CheckboxGroupProps
+  extends Pick<ContextGroupProps, 'disabled' | "color"> {
   name?: string;
   className?: string;
   style?: React.CSSProperties;
-  onChange?: (e: Event) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
   /**
    * 当前复选框组选中的值
@@ -31,25 +46,60 @@ export interface CheckboxGroupProps extends Pick<ContextGroupProps, 'disabled'> 
   options?: Array<OptionType | string | number>;
 }
 
-const CtxCheckboxGroup = React.createContext<ContextGroupProps | null>(null);
+export const CtxCheckboxGroup = React.createContext<ContextGroupProps | null>(null);
 
-export const InternalCheckboxGroup: React.ForwardRefRenderFunction<HTMLDivElement,CheckboxGroupProps> = (props, ref) => {
-  const { className, children,disabled, ...restProps } = props;
-  const [value, setVal] = React.useState<Array<CheckboxValType>>([]);
-
-  const context = React.useMemo(() => ({
-      name: restProps.name,
-      value: value,
-    }),[restProps.name, value]);
+export const InternalCheckboxGroup: React.ForwardRefRenderFunction<
+  HTMLDivElement,
+  CheckboxGroupProps
+> = (props, ref) => {
+  const { className, name ,disabled ,children} = props;
+  const { onChange, value, color, size } = useCheckboxGroup(props);
+  const context = React.useMemo(
+    () => ({ 
+      value,
+      onChange,
+    }),
+    [onChange, value]
+  );
 
   return (
-    <div className={twcls.stylesCheckbox({disabled}) + className} ref={ref}>
-      <CtxCheckboxGroup.Provider value={context}>
+    <div className={twcls.stylesCheckbox({ disabled }) + className} ref={ref}>
+      <CtxCheckboxGroup.Provider value={{...context,color,size,name}}>
         {children}
       </CtxCheckboxGroup.Provider>
     </div>
   );
 };
 
-const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(InternalCheckboxGroup);
+export interface IUseCheckboxGroup
+  extends Pick<CheckboxGroupProps, 'value' | 'onChange'> {
+  defaultValue?: Array<CheckboxValType>;
+  size?: ContextGroupProps['size'];
+  color?: string;
+}
+
+export const useCheckboxGroup = (props: IUseCheckboxGroup) => {
+  const {
+    defaultValue,
+    value: valProp,
+    onChange: onChangeProp,
+    ...restProps
+  } = props;
+
+  return {
+    ...restProps,
+    value: valProp,
+    onChange: onChangeProp,
+    getCheckboxProps: (option: any) => {
+      return {
+        ...option,
+        onChange: onChangeProp,
+      };
+    },
+  };
+};
+
+const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
+  InternalCheckboxGroup
+);
 export default CheckboxGroup;
