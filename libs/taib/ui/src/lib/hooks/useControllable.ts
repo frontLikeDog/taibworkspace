@@ -1,49 +1,86 @@
-import React, { useCallback, useRef } from 'react';
-
-export interface IUserControllableProps<T> {
-  value?: T;
-  defaultValue?: T | (() => T);
-  onChange?: (value: T) => void;
-  shouldUpdate?: (prevValue: T, nextValue: T) => boolean;
-}
-
-export type returnTypes<T> = [T, React.Dispatch<React.SetStateAction<T>>];
-
-export /**
- * 像useState一样,返回state和更新state的函数
- * 受控组件时传参为state的value,非受控组件时传参为一般变量
- * @template T
- * @param {IUserControllableProps<T>} props
- * @return {*}  {returnTypes<T>}
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
-const useControllableState = <T>(
-  props: IUserControllableProps<T>
-): returnTypes<T> => {
-  const {
-    value: valProp,
-    defaultValue,
-    onChange,
-    shouldUpdate = () => true,
-  } = props;
-  const [valState, setValState] = React.useState<T>(defaultValue as T);
-  const { current: isControlled } = useRef(valProp !== undefined);
-  const value = isControlled ? valProp : valState;
 
-   const updateVal = useCallback(
-    (next:any) => {
-      const nextValue =
-        typeof next === 'function' ? next(value) : next;
-      const shouldUpdateValue = shouldUpdate(value as T, nextValue);
+import {useCallback, useRef, useState} from 'react';
 
-      if (!shouldUpdateValue) return;
+export const useControllableProp = <T>(
+  prop: T | undefined,
+  state: T,
+): readonly [boolean, T] => {
+  const { current: isControlled } = useRef(prop !== undefined);
+  const value = isControlled && typeof prop !== 'undefined' ? prop : state;
 
-      if (!isControlled) {
-        setValState(next);
-      }
-      onChange?.(nextValue);
-    },
-    [value, isControlled, onChange, shouldUpdate]
-  );
-
-  return [value, updateVal] as returnTypes<T>;
+  return [isControlled, value] as const;
 };
+
+export function useControlledState<T>(
+  value: T,
+  defaultValue: T,
+  onChange: (value: T, ...args: any[]) => void
+): [T, (value: T, ...args: any[]) => void]  {
+  const [stateValue, setStateValue] = useState(value || defaultValue);
+  const ref = useRef(value !== undefined);
+  const wasControlled = ref.current;
+  const isControlled = value !== undefined;
+  // Internal state reference for useCallback
+  const stateRef = useRef(stateValue);
+  if (wasControlled !== isControlled) {
+    console.warn(`WARN: A component changed from ${wasControlled ? 'controlled' : 'uncontrolled'} to ${isControlled ? 'controlled' : 'uncontrolled'}.`);
+  }
+
+  ref.current = isControlled;
+
+  const setValue = useCallback((value:T, ...args:any[]) => {
+    const onChangeCaller = (value: T, ...onChangeArgs: any[]) => {
+      if (onChange) {
+        if (!Object.is(stateRef.current, value)) {
+          onChange(value, ...onChangeArgs);
+        }
+      }
+      if (!isControlled) {
+        stateRef.current = value;
+      }
+    };
+
+    if (typeof value === 'function') {
+      console.warn('We can not support a function callback. See Github Issues for details https://github.com/adobe/react-spectrum/issues/2320');
+      // this supports functional updates https://reactjs.org/docs/hooks-reference.html#functional-updates
+      // when someone using useControlledState calls setControlledState(myFunc)
+      // this will call our useState setState with a function as well which invokes myFunc and calls onChange with the value from myFunc
+      // if we're in an uncontrolled state, then we also return the value of myFunc which to setState looks as though it was just called with myFunc from the beginning
+      // otherwise we just return the controlled value, which won't cause a rerender because React knows to bail out when the value is the same
+      const updateFunction = (oldValue: any, ...functionArgs: any[]) => {
+        const interceptedValue = value(isControlled ? stateRef.current : oldValue, ...functionArgs);
+        onChangeCaller(interceptedValue, ...args);
+        if (!isControlled) {
+          return interceptedValue;
+        }
+        return oldValue;
+      };
+      setStateValue(updateFunction);
+    } else {
+      if (!isControlled) {
+        setStateValue(value);
+      }
+      onChangeCaller(value, ...args);
+    }
+  }, [isControlled, onChange]);
+
+  // If a controlled component's value prop changes, we need to update stateRef
+  if (isControlled) {
+    stateRef.current = value;
+  } else {
+    value = stateValue;
+  }
+
+  return [value, setValue];
+}

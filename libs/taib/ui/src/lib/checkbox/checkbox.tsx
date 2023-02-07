@@ -2,6 +2,8 @@ import { RadioChangeEvent } from '../radio/radio';
 // import styles from './checkbox.module.css';
 import React from 'react';
 import { CtxCheckboxGroup } from './checkbox-group';
+import { useControllableProp } from '../hooks';
+import { callAllHandler } from '../utils';
 
 export interface AbstractCheckboxProps<T> {
   className?: string;
@@ -60,19 +62,26 @@ export const InternalCheckbox: React.ForwardRefRenderFunction<
   HTMLInputElement,
   CheckboxProps
 > = (props, ref) => {
-  const { children, isChecked, className, ...rest } = props;
-  let { onChange } = props;
+  const { children, className, ...rest } = props;
 
-  const group  = React.useContext(CtxCheckboxGroup);
+  const group = React.useContext(CtxCheckboxGroup);
 
-  if(group?.color) {
+  if (group?.color) {
     rest.color = group.color;
   }
-
-  if(group?.onChange) {
+  let isChecked = props.isChecked;
+  if (group?.value && props.value) {
+    isChecked = group.value.includes(props.value);
+  }
+  let { onChange } = props;
+  if (group?.onChange && props.value) {
     onChange = group.onChange;
   }
-  const { state, getInputProps } = useCheckbox({ isChecked, onChange, ...rest });
+  const { state, getInputProps } = useCheckbox({
+    isChecked,
+    onChange,
+    ...rest,
+  });
 
   return (
     <label className="relative inline-flex items-center text-sm">
@@ -101,8 +110,41 @@ interface useCheckboxProps
 }
 
 const useCheckbox = (props: useCheckboxProps) => {
-  const {id,name,value,onChange,defaultChecked,isChecked: checkedProps,isIndeterminate,} = props;
+  const {
+    id,
+    name,
+    value,
+    onChange,
+    defaultChecked,
+    isChecked: checkedProps,
+    isIndeterminate,
+    ...htmlProps
+  } = props;
   const ref = React.useRef<HTMLInputElement>(null);
+
+  const [checkedState, setCheckedState] = React.useState(
+    Boolean(defaultChecked)
+  );
+
+  const [isControlled, isChecked] = useControllableProp(
+    checkedProps,
+    checkedState
+  );
+
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (!isControlled) {
+        if (isChecked) {
+          setCheckedState(event.target.checked);
+        } else {
+          setCheckedState(isIndeterminate ? true : event.target.checked);
+        }
+      }
+
+      onChange?.(event);
+    },
+    [isChecked, isControlled, isIndeterminate, onChange]
+  );
 
   React.useLayoutEffect(() => {
     if (ref.current) {
@@ -111,13 +153,16 @@ const useCheckbox = (props: useCheckboxProps) => {
   }, [isIndeterminate]);
 
   const getInputProps = (inputProps: HiddenInputProps = {}) => {
-    const { ref: inputRef,...rest } = inputProps;
+    const { ref: inputRef, ...rest } = inputProps;
     return {
       ...rest,
       type: 'checkbox',
       checked: checkedProps,
-      id,name,value,
+      id,
+      name,
+      value,
       ref: mergeRefs(ref, inputRef),
+      onChange: callAllHandler(inputProps.onChange, handleChange),
     };
   };
   return {
@@ -127,6 +172,7 @@ const useCheckbox = (props: useCheckboxProps) => {
       isIndeterminate,
     },
     getInputProps,
+    htmlProps,
   };
 };
 
@@ -146,7 +192,9 @@ export type HiddenInputProps = {
   ref?: React.Ref<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
+
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   InternalCheckbox
 );
+
 export default Checkbox;

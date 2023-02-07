@@ -23,11 +23,13 @@ Primary.storyName = "Default"
 
 export const Group = ()=> (
   <div>
-    <Checkbox.Group color="red-400">
-      <Checkbox>tiny</Checkbox>
-      <Checkbox>small</Checkbox>
-      <Checkbox>medium</Checkbox>
-      <Checkbox>large</Checkbox>
+    <Checkbox.Group color="red-400" defaultValue={['one', 'two']} onChange={(value) => console.log(value)}>
+      <div className="flex flex-col space-y-2">
+      <Checkbox value="one">one</Checkbox>
+      <Checkbox value="two">two</Checkbox>
+      <Checkbox value="three">three</Checkbox>
+      <Checkbox value="four" >four</Checkbox>
+      </div>
     </Checkbox.Group>
   </div>
 )
@@ -38,6 +40,7 @@ export const DisableCheckbox = () => (
     <Checkbox disabled={true} defaultChecked={true}>Checkbox</Checkbox>
   </div>
 )
+
 
 export const CustomColor = () => {
   const ref = React.useRef<HTMLInputElement>(null);
@@ -53,3 +56,38 @@ export const CustomColor = () => {
     </Stack>
   )
 }
+
+export const Controlled = () => {
+  const [value, setValue] = React.useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.checked);
+  };
+
+  return (
+    <Checkbox isChecked={value} onChange={handleChange}>
+      Controlled
+    </Checkbox>
+  );
+};
+
+
+export const ControlledCheckboxGroup = () => {
+  const [value, setValue] = React.useState<Array<string | number>>(['one', 'two']);
+
+  return (
+    <Checkbox.Group
+      value={value}
+      onChange={(v: any) => {
+        console.log(v);
+        setValue(v);
+      }}
+    >
+      <Stack>
+        <Checkbox value='one'>One</Checkbox>
+        <Checkbox value='two'>Two</Checkbox>
+        <Checkbox value='three'>Three</Checkbox>
+      </Stack>
+    </Checkbox.Group>
+  );
+};
