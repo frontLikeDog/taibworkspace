@@ -1,5 +1,5 @@
 import React from 'react';
-import { useControllableProp } from '../hooks';
+import { useControlledState } from '../hooks';
 import { callAllHandler } from '../utils';
 import { addItem, removeItem } from '../utils/array';
 import { isInputEvent } from '../utils/assersions';
@@ -90,23 +90,20 @@ export interface IUseCheckboxGroup
 export const useCheckboxGroup = (props: IUseCheckboxGroup) => {
   const {
     defaultValue,
-    value: valProp,
+    value,
     onChange: onChangeProp,
     ...restProps
   } = props;
 
-  const [valueState, setValue] = React.useState(defaultValue || []);
-  const [isControlled, value] = useControllableProp(valProp, valueState);
+  // const [valueState, setValue] = React.useState(defaultValue || []);
+  // const [isControlled, value] = useControllableProp(valProp, valueState);
+  // const [val,setVal] = useControllSedState<any>(value,defaultValue,()=>null)
 
   const updateValue = React.useCallback(
     (nextState: any) => {
-      if (!isControlled) {
-        setValue(nextState);
-      }
-
       onChangeProp?.(nextState);
     },
-    [isControlled, onChangeProp]
+    [ onChangeProp]
   );
 
   const onChange = React.useCallback(
@@ -133,8 +130,8 @@ export const useCheckboxGroup = (props: IUseCheckboxGroup) => {
   return {
     ...restProps,
     value,
-    onChange:callAllHandler(props.onChange, onChange),
-    setVal: updateValue,
+    onChange:callAllHandler(onChangeProp, onChange),
+    setVal: defaultValue,
     getCheckboxProps: (option: any) => {
       return {
         ...option,

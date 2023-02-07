@@ -122,28 +122,21 @@ const useCheckbox = (props: useCheckboxProps) => {
   } = props;
   const ref = React.useRef<HTMLInputElement>(null);
 
-  const [checkedState, setCheckedState] = React.useState(
-    Boolean(defaultChecked)
-  );
+  // const [checkedState, setCheckedState] = React.useState(
+  //   Boolean(defaultChecked)
+  // );
 
-  const [isControlled, isChecked] = useControllableProp(
-    checkedProps,
-    checkedState
-  );
+  // const [isControlled, isChecked] = useControllableProp(
+  //   checkedProps,
+  //   checkedState
+  // );
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (!isControlled) {
-        if (isChecked) {
-          setCheckedState(event.target.checked);
-        } else {
-          setCheckedState(isIndeterminate ? true : event.target.checked);
-        }
-      }
-
+      console.log('inner handleChange---')
       onChange?.(event);
     },
-    [isChecked, isControlled, isIndeterminate, onChange]
+    [onChange]
   );
 
   React.useLayoutEffect(() => {

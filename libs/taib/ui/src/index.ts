@@ -1,3 +1,4 @@
+export * from './lib/badge/badge';
 export * from './lib/form-control/form-control';
 export * from './lib/radio/radio';
 export * from './lib/checkbox/checkbox';

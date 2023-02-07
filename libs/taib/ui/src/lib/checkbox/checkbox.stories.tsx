@@ -61,6 +61,7 @@ export const Controlled = () => {
   const [value, setValue] = React.useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('outer handle log')
     setValue(e.target.checked);
   };
 
@@ -79,7 +80,7 @@ export const ControlledCheckboxGroup = () => {
     <Checkbox.Group
       value={value}
       onChange={(v: any) => {
-        console.log(v);
+        console.log("outer handle",v);
         setValue(v);
       }}
     >
