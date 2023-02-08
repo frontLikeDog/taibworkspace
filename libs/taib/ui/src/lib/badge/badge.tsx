@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { baseColor } from '../utils/colors';
-import styles from './badge.module.css';
 import { badgeClsFn } from './style';
 
 
@@ -13,14 +12,12 @@ export interface BadgeProps {
 export function Badge(props: BadgeProps) {
   const { colors="black", className:clsn="" } = props;
 
-  useEffect(() => {
-    console.log('badge', badgeClsFn(colors));
-  }, [colors]);
+  // useEffect(() => {
+  //   console.log('badge', badgeClsFn(colors));
+  // }, [colors]);
 
   return (
-    <div className={styles['container']}>
       <span className={badgeClsFn(colors) + `${clsn}`}>Badge</span>
-    </div>
   );
 }
 
