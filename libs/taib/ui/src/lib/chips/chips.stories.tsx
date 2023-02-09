@@ -4,7 +4,7 @@ import Chips from "./chips";
 
 
 export default {
-    title: 'Dev/Chips',
+    title: 'Beta/Chips',
     component: Chips,
 } as ComponentMeta<typeof Chips>;
 

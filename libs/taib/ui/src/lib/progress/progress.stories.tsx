@@ -3,7 +3,7 @@ import Progress from "./progress"
 
 
 export default {
-    title: 'DEV/Progress',
+    title: 'Beta/Progress',
     component: Progress,
 } as ComponentMeta<typeof Progress>;
 

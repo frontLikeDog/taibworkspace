@@ -5,7 +5,7 @@ import Alert from "./alert";
 
 
 export default {
-    title: 'DEV/Alert',
+    title: 'Beta/Alert',
     component: Alert,
 } as ComponentMeta<typeof Alert>;
 

@@ -1,3 +1,7 @@
+export * from './lib/steps/steps';
+export * from './lib/rate/rate';
+export * from './lib/pagination/pagination';
+export * from './lib/time-line/time-line';
 export * from './lib/testimonial/testimonial';
 export * from './lib/chips/chips';
 export * from './lib/card/card';

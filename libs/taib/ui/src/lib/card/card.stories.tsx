@@ -4,7 +4,7 @@ import Card from "./card";
 
 
 export default {
-    title: 'DEV/Card',
+    title: 'Beta/Card',
     component: Card,
 } as ComponentMeta<typeof Card>;
 
