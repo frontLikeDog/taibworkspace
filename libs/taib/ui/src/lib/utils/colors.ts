@@ -1,4 +1,4 @@
-import { TArg } from "tailwindcss-classnames";
+import { TArg, classnames } from "tailwindcss-classnames";
 
 //为色值建立枚举类型，值为tailwindcss-config中的颜色值
 export enum elmColorEnum {
@@ -41,11 +41,47 @@ interface anyClsObj {
     [key: string]: TArg | string;
 }
 
+interface bgAndTextProps {
+    [key: string]: [bgClorType, textColorType];
+}
+
+// f返回bgColor和textColor的组合,是TW的class类
+const TArgWithBgTextColor = (bgColor:bgClorType,textColor:textColorType) => {
+    return classnames(`${bgColor} ${textColor}` as TArg)
+}
+
+// 设置常用的背景色和文字颜色
+const _BgAndText:bgAndTextProps = {
+    primaryArry : ["bg-primary", "text-white"],
+    linkArry : ["bg-link", "text-white"],
+    infoArry : ["bg-info", "text-white"],
+    successArry : ["bg-success", "text-white"],
+    warningArry : ["bg-warning", "text-black"],
+    dangerArry : ["bg-danger", "text-white"],
+    blackArry : ["bg-black", "text-white"],
+    lightArry : ["bg-light", "text-gray"],
+    darkArry : ["bg-dark", "text-white"],
+    whiteArry : ["bg-white", "text-gray"],
+    grayArry : ["bg-gray", "text-white"],
+};
+
+interface IBgTextColorProps {
+    [key: string]: TArg;
+}
+
+// 创建一个函数，遍历_BgAndText，解构出数组，传入_withBgTextColor函数，返回TW的class类
+export const SetColorWithBgAndText = (color:baseColor) => {
+    const res:IBgTextColorProps = {};
+    Object.keys(_BgAndText).forEach((key) => {
+        const [bgColor, textColor] = _BgAndText[key];
+        res[key] = TArgWithBgTextColor(bgColor, textColor)
+    })
+    return clsHelperFn(res, `${color}Arry`);
+}
+
+
 /**
  * 辅助函数，输入一个对象和一个字符串，返回classnames样式
- *
- * @template T
- * @template K
  * @param {T} obj
  * @param {K} str
  * @return {*}  {(TArg | undefined)}

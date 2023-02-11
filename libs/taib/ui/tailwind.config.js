@@ -59,7 +59,7 @@ module.exports = {
           darker: 'hsl(0, 0%, 21%)'
         },
         light: {
-          DEFAULT: 'hsl(0, 0%, 96%)',
+          DEFAULT: 'hsl(0, 0%, 95%)',
           hover: '#eeeeee',
           active: '#e8e8e8'
         },

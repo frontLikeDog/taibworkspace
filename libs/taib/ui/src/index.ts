@@ -1,3 +1,6 @@
+export * from './lib/popover/popover';
+export * from './lib/modal/modal';
+export * from './lib/drawer/drawer';
 export * from './lib/steps/steps';
 export * from './lib/rate/rate';
 export * from './lib/pagination/pagination';

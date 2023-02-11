@@ -4,7 +4,7 @@ import { TopicButton, TopicButtonProps } from './topic-button';
 
 export default {
   component: TopicButton,
-  title: 'TopicButton',
+  title: 'Dev/TopicButton',
   argTypes: {
     onClick: { action: 'onClick executed!' },
   },

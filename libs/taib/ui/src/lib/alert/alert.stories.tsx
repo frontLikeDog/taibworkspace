@@ -2,8 +2,6 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Alert from "./alert";
 
 
-
-
 export default {
     title: 'Beta/Alert',
     component: Alert,
