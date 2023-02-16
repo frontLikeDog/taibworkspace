@@ -216,46 +216,8 @@ export function useControllableColor<T extends argColorTypes>({
   type: T;
   color?: preColors;
 }) {
-  // 定义返回值
-  // let result: string;
-  const [typeColor, setTypeColor] = useState<T>(type ?? 'bg');
-  const [colorValue, setColorValue] = useState<preColors>(color ?? 'primary');
-
-  // 颜色值
-  //   let clsVal:string;
-
-  // 根据type,结合color,返回对应的颜色
-  //   switch (typeColor) {
-  //     case 'bg':
-  //       clsVal = presetBgColors[colorValue];
-  //       break;
-  //     case 'border-x':
-  //       clsVal = presetBorderXColors[`border-x-${colorValue}`];
-  //       break;
-  //     case 'border-y':
-  //       clsVal = presetBorderYColors[`border-y-${colorValue}`];
-  //       break;
-  //     case 'border-t':
-  //       clsVal = presetBorderTColors[`border-t-${colorValue}`];
-  //       break;
-  //     case 'border-r':
-  //       clsVal = presetBorderRColors[`border-r-${colorValue}`];
-  //       break;
-  //     case 'border-b':
-  //       clsVal = presetBorderBColors[`border-b-${colorValue}`];
-  //       break;
-  //     case 'border-l':
-  //       clsVal = presetBorderLColors[`border-l-${colorValue}`];
-  //       break;
-  //     case 'border':
-  //       clsVal = presetBorderColors[`border-${colorValue}`];
-  //       break;
-  //     case 'text':
-  //       clsVal = presetTextColors[colorValue];
-  //       break;
-  //     default:
-  //       clsVal = "";
-  //   }
+  // const [typeColor, setTypeColor] = useState<T>(type ?? 'bg');
+  // const [colorValue, setColorValue] = useState<preColors>(color ?? 'primary');
 
   //颜色值
   const [clsVal, setCls] = useState<any>();

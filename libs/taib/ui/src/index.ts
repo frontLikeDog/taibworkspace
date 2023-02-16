@@ -14,7 +14,7 @@ export * from './lib/progress/progress';
 export * from './lib/badge/badge';
 export * from './lib/form-control/form-control';
 export * from './lib/radio/radio';
-export * from './lib/checkbox/checkbox';
+export * from './lib/checkbox';
 export * from './lib/input/input';
 export * from './lib/container/container';
 export * from './lib/typography/typography';

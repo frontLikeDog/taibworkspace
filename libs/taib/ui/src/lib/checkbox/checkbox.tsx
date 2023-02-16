@@ -1,10 +1,22 @@
-import { RadioChangeEvent } from '../radio/radio';
 // import styles from './checkbox.module.css';
 import React from 'react';
 import { CtxCheckboxGroup } from './checkbox-group';
 import { useControllableProp } from '../hooks';
 import { callAllHandler } from '../utils';
 
+export type RadioProps = Omit<AbstractCheckboxProps<RadioChangeEvent>,"onChange"> & {
+  onChange?: (e: RadioChangeEvent) => void;
+};
+
+export interface RadioChangeEventTarget extends RadioProps {
+  checked: boolean;
+}
+export interface RadioChangeEvent {
+  target: RadioChangeEventTarget;
+  stopPropagation: () => void;
+  preventDefault: () => void;
+  nativeEvent: MouseEvent;
+}
 export interface AbstractCheckboxProps<T> {
   className?: string;
   /**

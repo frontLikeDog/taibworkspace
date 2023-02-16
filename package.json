@@ -20,6 +20,7 @@
     "rc-checkbox": "^2.3.2",
     "rc-input": "^0.1.4",
     "react": "18.2.0",
+    "react-aria": "^3.22.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.4.1",
     "regenerator-runtime": "0.13.7",

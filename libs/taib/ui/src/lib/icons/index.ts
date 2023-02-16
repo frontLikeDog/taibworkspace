@@ -3,4 +3,5 @@ export {default as IconLoader } from './icons/iconLoader/IconLoader';
 export {default as IconRight } from './icons/iconRight/IconRight'
 export {default as IconBase } from './iconBase';
 export {default as IconXMark } from './icons/iconXMark/iconXMark';
+export {default as IconWarning } from './icons/iconWarning/iconWarning';
 

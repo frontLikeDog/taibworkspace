@@ -1,11 +1,5 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-@layer components {
-  a.taibui-typography-link {
+a.taibui-typography-link {
     @apply text-sm text-link cursor-pointer;
-  }
-  
 }
+  
 
