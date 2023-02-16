@@ -1,5 +1,9 @@
+import { useDialog } from "@react-aria/dialog";
+import { OverlayContainer, useModal, useOverlay } from "@react-aria/overlays";
 import React, { useRef } from "react";
-import { FocusScope, mergeProps, OverlayContainer, useDialog, useModal, useOverlay } from "react-aria";
+import { mergeProps } from "@react-aria/utils";
+import { FocusScope } from "@react-aria/focus";
+// import { FocusScope, mergeProps, OverlayContainer, useDialog, useModal, useOverlay } from "react-aria";
 
 
 interface DrawerProps {
