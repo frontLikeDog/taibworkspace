@@ -7,6 +7,8 @@ import type { AriaButtonProps } from "@react-aria/button";
 
 interface ButtonProps extends AriaButtonProps {
   variant?: "default" | "cta" | "destructive";
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 export function Button(props: ButtonProps) {

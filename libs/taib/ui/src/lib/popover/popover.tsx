@@ -1,12 +1,10 @@
-/* eslint-disable-next-line */
-export interface PopoverProps {}
+import { FC } from "react"
 
-export function Popover(props: PopoverProps) {
-  return (
-    <div>
-      <h1>Welcome to Popover!</h1>
-    </div>
-  );
+const Popover:FC<any> = () => {
+  return <>
+    2333
+  </>
 }
 
-export default Popover;
+
+export default Popover

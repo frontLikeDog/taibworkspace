@@ -5,6 +5,8 @@ import { useOverlayTriggerState } from 'react-stately';
 import { Modal } from './modal';
 import { ComponentMeta } from '@storybook/react';
 import { AlertDialog } from './AlertDialog';
+import { FormDialog } from './formDialog';
+import { ModalTrigger } from './ModalTrigger';
 
 export default {
   title: 'Beta/Modal',
@@ -23,8 +25,6 @@ export function AlertDialogComponent(props: AlertDialogProps) {
   const state = useOverlayTriggerState({});
   return (
     <div className="flex flex-col items-center max-w-lg mx-auto">
-      {/* prettier-ignore */}
-      <p className="mt-8 mb-16 text-gray-600">This sandbox shows an example <strong><code>AlertDialog</code></strong> component built with <a href="https://react-spectrum.adobe.com/react-aria/" rel="noreferrer" target="_blank" className="text-blue-700 underline">React Aria</a> and <a href="http://tailwindcss.com/" rel="noreferrer" target="_blank" className="text-blue-700 underline">Tailwind CSS</a> using the <code>useDialog</code> hook. It also uses <a href="https://reactcommunity.org/react-transition-group/" rel="noreferrer" target="_blank" className="text-blue-700 underline">React Transition Group</a> for CSS animations.</p>
       <Button variant="cta" onPress={state.open}>
         删除
       </Button>
@@ -40,5 +40,40 @@ export function AlertDialogComponent(props: AlertDialogProps) {
         </AlertDialog>
       </Modal>
     </div>
+  );
+}
+
+export function FormDialogComponet() {
+  return (
+    <ModalTrigger label="Open Form Dialog">
+      {(close) => (
+        <FormDialog title="Please Enter your name">
+          <form className="flex flex-col space-y-2">
+            <label htmlFor="first-name" className="font-medium text-gray-700">
+              First Name:
+            </label>
+            <input
+              id="first-name"
+              type="text"
+              className="form-input block w-full rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+            />
+            <label htmlFor="last-name" className="font-medium text-gray-700">
+              Last Name:
+            </label>
+            <input
+              id="last-name"
+              type="text"
+              className="form-input block w-full rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+            />
+            <Button
+               onPress={close}
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Submit
+            </Button>
+          </form>
+        </FormDialog>
+      )}
+    </ModalTrigger>
   );
 }
