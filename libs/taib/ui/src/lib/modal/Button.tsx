@@ -9,6 +9,7 @@ interface ButtonProps extends AriaButtonProps {
   variant?: "default" | "cta" | "destructive";
   style?: React.CSSProperties;
   className?: string;
+  buttonRef?: React.RefObject<HTMLButtonElement>;
 }
 
 export function Button(props: ButtonProps) {

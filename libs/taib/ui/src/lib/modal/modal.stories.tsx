@@ -47,33 +47,9 @@ export function FormDialogComponet() {
   return (
     <ModalTrigger label="Open Form Dialog">
       {(close) => (
-        <FormDialog title="Please Enter your name">
-          <form className="flex flex-col space-y-2">
-            <label htmlFor="first-name" className="font-medium text-gray-700">
-              First Name:
-            </label>
-            <input
-              id="first-name"
-              type="text"
-              className="form-input block w-full rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-            />
-            <label htmlFor="last-name" className="font-medium text-gray-700">
-              Last Name:
-            </label>
-            <input
-              id="last-name"
-              type="text"
-              className="form-input block w-full rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-            />
-            <Button
-               onPress={close}
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Submit
-            </Button>
-          </form>
-        </FormDialog>
+          <FormDialog title='Please Enter Your Name' onClose={close} />
       )}
     </ModalTrigger>
   );
 }
+ 
