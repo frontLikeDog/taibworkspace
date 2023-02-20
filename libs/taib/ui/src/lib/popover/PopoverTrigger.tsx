@@ -1,4 +1,4 @@
-import { useOverlayPosition, useOverlayTrigger } from '@react-aria/overlays';
+import { useOverlayTrigger } from '@react-aria/overlays';
 import { useOverlayTriggerState } from 'react-stately';
 import type { OverlayTriggerProps } from 'react-stately';
 import type {Placement} from './popover'
@@ -15,7 +15,7 @@ interface PopoverTriggerProps extends OverlayTriggerProps {
 }
 
 function PopoverTrigger({ label, children,placement, ...props }: PopoverTriggerProps) {
-  const ref = useRef<any>();
+  const ref = useRef(null);
   const state = useOverlayTriggerState(props);
 
   const { triggerProps, overlayProps } = useOverlayTrigger(

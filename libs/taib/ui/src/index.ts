@@ -1,3 +1,4 @@
+export * from './lib/tooltip/tooltip';
 export * from './lib/popover/popover';
 export * from './lib/modal/modal';
 export * from './lib/drawer/drawer';

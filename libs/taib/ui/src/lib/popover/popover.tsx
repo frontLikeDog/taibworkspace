@@ -45,7 +45,7 @@ function Popover({
   placement: plcmProps,
   ...props
 }: PopoverProps) {
-  const popoverRef = useRef<any>();
+  const popoverRef = useRef(null);
 
   const { popoverProps, underlayProps, arrowProps, placement } = usePopover(
     {

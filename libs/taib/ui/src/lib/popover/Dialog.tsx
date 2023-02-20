@@ -11,7 +11,7 @@ interface IDialogProps extends AriaDialogProps {
 }
 
 function Dialog({ title, children, ...props }: IDialogProps) {
-  const ref = useRef<any>();
+  const ref = useRef(null);
   const { dialogProps, titleProps } = useDialog(props, ref);
  
   return (
